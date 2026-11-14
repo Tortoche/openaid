@@ -1,0 +1,169 @@
+[
+  {
+    "id": "crous-bcs",
+    "name": "Bourse sur Critères Sociaux (CROUS)",
+    "category": "Bourse",
+    "provider": "Ministère de l'Enseignement Supérieur / CROUS",
+    "monthlyMin": 145,
+    "monthlyMax": 633,
+    "conditions": {
+      "requiresStudentStatus": true,
+      "maxAge": 28,
+      "eligibleEchelons": ["0bis", "1", "2", "3", "4", "5", "6", "7"]
+    },
+    "advantages": [
+      "Versement mensuel sur 10 mois (septembre à juin)",
+      "Exonération totale des droits d'inscription universitaires",
+      "Exonération totale de la contribution de vie étudiante et de campus (CVEC - ~105 €)",
+      "Priorité dans l'attribution des logements en résidence CROUS"
+    ],
+    "documents": [
+      "Avis fiscal des parents (ou personnel si rupture/déclaration séparée)",
+      "Certificat de scolarité de l'année en cours",
+      "Relevé d'Identité Bancaire (RIB)"
+    ],
+    "applicationUrl": "https://messervices.etudiant.gouv.fr"
+  },
+  {
+    "id": "caf-apl",
+    "name": "Aide Personnalisée au Logement (APL)",
+    "category": "Logement",
+    "provider": "Caisse d'Allocations Familiales (CAF)",
+    "monthlyMin": 130,
+    "monthlyMax": 260,
+    "conditions": {
+      "requiresTenancy": true,
+      "excludesLivingWithParents": true
+    },
+    "advantages": [
+      "Versement mensuel directement au locataire ou déduit du loyer",
+      "Cumulable avec la bourse CROUS",
+      "Calculé automatiquement selon le loyer et la zone géographique (Zone 1 IDF, Zone 2 grandes métropoles, Zone 3)"
+    ],
+    "documents": [
+      "Bail locatif signé",
+      "Attestation de loyer complétée par le propriétaire ou le CROUS",
+      "Pièce d'identité et RIB"
+    ],
+    "applicationUrl": "https://www.caf.fr"
+  },
+  {
+    "id": "crous-repas-1euro",
+    "name": "Tarification Sociale du Repas CROUS (1 €)",
+    "category": "Alimentation",
+    "provider": "CROUS",
+    "estimatedMonthlySavings": 80,
+    "conditions": {
+      "requiresStudentStatus": true,
+      "criteria": "Boursier ou étudiant non-boursier en situation de précarité constatée"
+    },
+    "advantages": [
+      "Repas complet (entrée + plat + dessert) pour 1 € au lieu de 3,30 € tarif étudiant standard",
+      "Valable dans tous les restaurants universitaires et cafétérias CROUS de France"
+    ],
+    "documents": [
+      "Activation automatique via le compte Izly (statut boursier)",
+      "Ou dossier simplifié sur messervices.etudiant.gouv.fr pour les non-boursiers"
+    ],
+    "applicationUrl": "https://www.izly.fr"
+  },
+  {
+    "id": "crous-asap",
+    "name": "Aide Spécifique d'Urgence Ponctuelle (ASAP)",
+    "category": "Urgence",
+    "provider": "Service Social CROUS",
+    "oneOffMax": 1500,
+    "conditions": {
+      "situation": "Difficulté financière passagère, rupture familiale, impayés imprévus"
+    },
+    "advantages": [
+      "Versement unique ou fractionné en urgence",
+      "Examen individualisé en commission d'attribution"
+    ],
+    "documents": [
+      "Justificatif des charges récentes (factures, quittance de loyer)",
+      "Courrier de situation expliquant l'urgence"
+    ],
+    "applicationUrl": "https://etudiant.gouv.fr"
+  },
+  {
+    "id": "univ-fsdie",
+    "name": "Fonds de Solidarité et de Développement des Initiatives Étudiantes (FSDIE)",
+    "category": "Urgence",
+    "provider": "Commission Sociale de l'Université",
+    "oneOffMax": 1000,
+    "conditions": {
+      "requiresEnrollment": true,
+      "criteria": "Étudiant inscrit dans l'université connaissant des difficultés matérielles aiguës"
+    },
+    "advantages": [
+      "Financement direct de frais d'études, matériel informatique, loyers en retard ou santé",
+      "Aide gérée au niveau de votre propre campus par des élus étudiants et l'administration"
+    ],
+    "documents": [
+      "Dossier FSDIE à retirer au service de scolarité ou auprès du bureau des étudiants",
+      "Relevés de compte des 3 derniers mois"
+    ],
+    "applicationUrl": "https://etudiant.gouv.fr"
+  },
+  {
+    "id": "visale-garantie",
+    "name": "Garantie Locative Gratuite VISALE",
+    "category": "Logement",
+    "provider": "Action Logement",
+    "estimatedMonthlySavings": 0,
+    "conditions": {
+      "ageMax": 30,
+      "requiresStudentStatus": true
+    },
+    "advantages": [
+      "Caution locative 100% gratuite qui remplace les garants parentaux",
+      "Rassure les propriétaires bailleurs et résidences privées"
+    ],
+    "documents": [
+      "Pièce d'identité en cours de validité",
+      "Carte étudiante ou certificat de scolarité"
+    ],
+    "applicationUrl": "https://www.visale.fr"
+  },
+  {
+    "id": "epiciere-solidaire",
+    "name": "Épiceries Solidaires et Paniers Repas Gratuits (Cop1, Linkee)",
+    "category": "Alimentation",
+    "provider": "Associations étudiantes (Cop1 - Solidarités Étudiantes, Linkee)",
+    "estimatedMonthlySavings": 75,
+    "conditions": {
+      "requiresStudentStatus": true
+    },
+    "advantages": [
+      "Paniers alimentaires de 5 à 7 kg distribués gratuitement chaque semaine",
+      "Produits d'hygiène et de première nécessité offerts sans condition de ressources strictes"
+    ],
+    "documents": [
+      "Réservation préalable sur leur plateforme",
+      "Présentation de la carte étudiante lors de la collecte"
+    ],
+    "applicationUrl": "https://cop1.fr"
+  },
+  {
+    "id": "transport-idf-imagine-r",
+    "name": "Forfait Imagine R Étudiant (Île-de-France)",
+    "category": "Transport",
+    "provider": "Île-de-France Mobilités",
+    "estimatedMonthlySavings": 50,
+    "conditions": {
+      "region": "idf",
+      "ageMax": 26,
+      "requiresStudentStatus": true
+    },
+    "advantages": [
+      "Accès illimité à toutes les zones (1 à 5) du réseau francilien (Métro, RER, Bus, Tram)",
+      "Tarif annuel d'environ 375 € (~37,50 €/mois sur 10 mois) contre 88,80 €/mois pour le Navigo plein tarif"
+    ],
+    "documents": [
+      "Certificat de scolarité",
+      "Photo d'identité et moyen de paiement"
+    ],
+    "applicationUrl": "https://www.iledefrance-mobilites.fr/titres-et-tarifs/detail/forfait-imagine-r-etudiant"
+  }
+]

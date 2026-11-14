@@ -1,0 +1,17 @@
+{
+  "name": "openaid",
+  "version": "1.0.0",
+  "description": "Moteur libre et respectueux de la vie privée d'éligibilité aux aides étudiantes",
+  "main": "dist/engine.js",
+  "scripts": {
+    "start": "ts-node src/cli.ts",
+    "build": "tsc"
+  },
+  "keywords": ["student", "open-source", "solidarity", "france-student", "grants"],
+  "author": "France Student Contributor",
+  "license": "MIT",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}

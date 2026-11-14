@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenAid — Simulateur Libre & Éthique des Aides Étudiantes</title>
+  <meta name="description" content="Découvrez 100% des aides étudiantes auxquelles vous avez droit. 100% local, anonyme, sans publicité ni revente de données.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --primary-light: #e0e7ff;
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-green: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-sky: #0ea5e9;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 2.5rem 1.5rem 1.5rem;
+      text-align: center;
+      background: radial-gradient(circle at top, rgba(79, 70, 229, 0.25), transparent 70%);
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(79, 70, 229, 0.15);
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      color: var(--text-muted);
+      max-width: 620px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+    }
+
+    main {
+      flex: 1;
+      max-width: 1000px;
+      width: 100%;
+      margin: 2rem auto;
+      padding: 0 1.25rem;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 840px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 1rem;
+      padding: 1.75rem;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+
+    .card h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: #e2e8f0;
+    }
+
+    select, input[type="number"] {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 0.6rem;
+      border: 1px solid var(--card-border);
+      background: #0f172a;
+      color: var(--text);
+      font-size: 0.95rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    select:focus, input[type="number"]:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #0f172a;
+      padding: 0.75rem 1rem;
+      border-radius: 0.6rem;
+      border: 1px solid var(--card-border);
+      cursor: pointer;
+      margin-bottom: 0.75rem;
+    }
+
+    .checkbox-group input {
+      accent-color: var(--primary);
+      width: 1.1rem;
+      height: 1.1rem;
+      cursor: pointer;
+    }
+
+    .checkbox-group span {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: #cbd5e1;
+    }
+
+    .results-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .total-amount {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent-green);
+    }
+
+    .total-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .aid-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .aid-item {
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 0.75rem;
+      padding: 1.1rem 1.25rem;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .aid-item:hover {
+      border-color: #475569;
+      transform: translateY(-2px);
+    }
+
+    .aid-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.4rem;
+    }
+
+    .aid-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #ffffff;
+    }
+
+    .aid-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 0.4rem;
+      background: rgba(14, 165, 233, 0.15);
+      color: var(--accent-sky);
+      border: 1px solid rgba(14, 165, 233, 0.3);
+    }
+
+    .aid-val {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--accent-green);
+      margin: 0.2rem 0;
+    }
+
+    .aid-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .aid-steps {
+      font-size: 0.78rem;
+      color: #a5b4fc;
+      background: rgba(79, 70, 229, 0.1);
+      padding: 0.4rem 0.6rem;
+      border-radius: 0.4rem;
+      display: inline-block;
+    }
+
+    .zero-state {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      color: var(--text-muted);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--card-border);
+    }
+
+    footer a {
+      color: #818cf8;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge">
+      <span>🛡️ 100% Anonyme & Local</span>
+      <span>•</span>
+      <span>Licence Libre MIT</span>
+      <span>•</span>
+      <span>Zéro Revente de Données</span>
+    </div>
+    <h1>OpenAid Étudiant</h1>
+    <p>Le moteur open-source communautaire qui révèle toutes les aides sociales, bourses et soutiens d'urgence pour les étudiants en France.</p>
+  </header>
+
+  <main>
+    <!-- Questionnaire de simulation -->
+    <section class="card">
+      <h2>⚙️ Votre Situation</h2>
+
+      <div class="form-group">
+        <label for="bourse">Statut Boursier CROUS</label>
+        <select id="bourse" onchange="runSimulation()">
+          <option value="none">Non-boursier</option>
+          <option value="0bis">Échelon 0bis (~145 €/mois)</option>
+          <option value="1">Échelon 1 (~216 €/mois)</option>
+          <option value="2">Échelon 2 (~271 €/mois)</option>
+          <option value="3">Échelon 3 (~341 €/mois)</option>
+          <option value="4">Échelon 4 (~411 €/mois)</option>
+          <option value="5">Échelon 5 (~470 €/mois)</option>
+          <option value="6">Échelon 6 (~554 €/mois)</option>
+          <option value="7" selected>Échelon 7 (~633 €/mois)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="logement">Type de Logement</label>
+        <select id="logement" onchange="runSimulation()">
+          <option value="locataire_seul" selected>Locataire seul (Studio / Résidence privée)</option>
+          <option value="crous">Résidence CROUS</option>
+          <option value="coloc">Colocation</option>
+          <option value="parents">Chez les parents</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="ville">Ville d'Études</label>
+        <select id="ville" onchange="runSimulation()">
+          <option value="idf" selected>Île-de-France (Paris et couronne)</option>
+          <option value="lyon">Lyon / Métropole</option>
+          <option value="marseille">Marseille / Aix</option>
+          <option value="lille">Lille</option>
+          <option value="toulouse">Toulouse</option>
+          <option value="autre">Autre ville universitaire</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Situations Particulières</label>
+        <label class="checkbox-group">
+          <input type="checkbox" id="repas1euro" checked onchange="runSimulation()">
+          <span>Accès au repas CROUS à 1 € (boursier ou précarité)</span>
+        </label>
+        <label class="checkbox-group">
+          <input type="checkbox" id="aide_urgence" onchange="runSimulation()">
+          <span>Difficulté financière d'urgence (retard de bourse / rupture familiale)</span>
+        </label>
+        <label class="checkbox-group">
+          <input type="checkbox" id="transport" checked onchange="runSimulation()">
+          <span>Utilisateur des transports en commun</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Résultats & estimation en direct -->
+    <section class="card">
+      <div class="results-header">
+        <div>
+          <h2>🎉 Aides Détectées</h2>
+          <div class="total-label">Estimation Mensuelle Directe</div>
+        </div>
+        <div class="total-amount" id="totalAides">0 € / mois</div>
+      </div>
+
+      <div id="aidList" class="aid-list">
+        <!-- Rempli dynamiquement -->
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>OpenAid</strong> — Projet open-source développé dans le cadre du Programme de Contribution <a href="https://francestudent.org" target="_blank" rel="noopener">France Student</a>.</p>
+    <p style="margin-top: 0.35rem; font-size: 0.78rem;">Hébergé gratuitement sur GitHub Pages. Aucun cookie ni donnée personnelle n'est collectée.</p>
+  </footer>
+
+  <script>
+    const BOURSE_VALUES = {
+      'none': 0,
+      '0bis': 145,
+      '1': 216,
+      '2': 271,
+      '3': 341,
+      '4': 411,
+      '5': 470,
+      '6': 554,
+      '7': 633
+    };
+
+    function runSimulation() {
+      const bourse = document.getElementById('bourse').value;
+      const logement = document.getElementById('logement').value;
+      const ville = document.getElementById('ville').value;
+      const aideUrgence = document.getElementById('aide_urgence').checked;
+      const transport = document.getElementById('transport').checked;
+      const repas1euro = document.getElementById('repas1euro').checked;
+
+      const results = [];
+      let totalMonthly = 0;
+
+      // 1. Bourse Crous
+      if (bourse !== 'none') {
+        const montant = BOURSE_VALUES[bourse];
+        totalMonthly += montant;
+        results.push({
+          titre: "Bourse sur Critères Sociaux (CROUS)",
+          tag: "National",
+          valeur: `${montant} € / mois`,
+          desc: "Versée sur 10 mois par le CROUS. Exonération des frais d'inscription universitaire et de la CVEC.",
+          demarche: "Dossier Social Étudiant (DSE) sur messervices.etudiant.gouv.fr"
+        });
+      }
+
+      // 2. APL / Allocation Logement CAF
+      if (logement !== 'parents') {
+        let aplEstimee = 0;
+        if (bourse !== 'none') {
+          aplEstimee = (ville === 'idf') ? 220 : 185;
+        } else {
+          aplEstimee = (ville === 'idf') ? 160 : 130;
+        }
+        totalMonthly += aplEstimee;
+        results.push({
+          titre: "Aide Personnalisée au Logement (APL CAF)",
+          tag: "National (CAF)",
+          valeur: `~${aplEstimee} € / mois`,
+          desc: "Aide au loyer versée directement sur votre compte bancaire ou au bailleur.",
+          demarche: "Demande 100% en ligne sur caf.fr dès la signature du bail"
+        });
+      }
+
+      // 3. Tarification Transports
+      if (transport) {
+        let ecoTransport = "";
+        let montantEco = 0;
+        if (ville === 'idf') {
+          ecoTransport = "Forfait Imagine R Étudiant (~38 €/mois au lieu de 88 € Navigo standard).";
+          montantEco = 50;
+        } else if (ville === 'lyon') {
+          ecoTransport = "Abonnement TCL Solidaire / Étudiant à tarif réduit.";
+          montantEco = 35;
+        } else {
+          ecoTransport = "Tarification solidaire locale et Pass Rail régional (50% de réduction).";
+          montantEco = 25;
+        }
+        totalMonthly += montantEco;
+        results.push({
+          titre: "Tarification Solidaire Transports",
+          tag: "Régional",
+          valeur: `~${montantEco} € / mois d'économie`,
+          desc: ecoTransport,
+          demarche: "Souscription avec certificat de scolarité auprès du réseau de transport"
+        });
+      }
+
+      // 4. Repas CROUS à 1 € & Épiceries Solidaires
+      if (repas1euro || bourse !== 'none') {
+        results.push({
+          titre: "Repas CROUS à 1 € & Épiceries Solidaires",
+          tag: "Alimentation",
+          valeur: "1 € par repas (~80 € d'économie/mois)",
+          desc: "Tarif social garanti dans tous les Resto'U de France + accès aux distributions gratuites Cop1 et Linkee.",
+          demarche: "Activé automatiquement via votre compte Izly avec statut boursier ou dossier social"
+        });
+      }
+
+      // 5. Aide d'urgence exceptionnelle (FSDIE / Crous)
+      if (aideUrgence) {
+        results.push({
+          titre: "Fonds d'Urgence FSDIE & Aide Spécifique CROUS (ASAP)",
+          tag: "Aide Ponctuelle",
+          valeur: "Jusqu'à 500 € à 1 500 € ponctuels",
+          desc: "Fonds de solidarité géré par la commission sociale de votre université pour parer aux impayés ou ruptures.",
+          demarche: "Prendre RDV d'urgence avec le service social du CROUS ou de l'université"
+        });
+      }
+
+      // Affichage
+      document.getElementById('totalAides').textContent = `~${totalMonthly} € / mois`;
+      const container = document.getElementById('aidList');
+      container.innerHTML = results.map(r => `
+        <div class="aid-item">
+          <div class="aid-top">
+            <span class="aid-title">${r.titre}</span>
+            <span class="aid-tag">${r.tag}</span>
+          </div>
+          <div class="aid-val">${r.valeur}</div>
+          <p class="aid-desc">${r.desc}</p>
+          <div class="aid-steps">👉 Démarche : ${r.demarche}</div>
+        </div>
+      `).join('');
+    }
+
+    // Exécution initiale
+    runSimulation();
+  </script>
+</body>
+</html>
